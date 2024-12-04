@@ -97,35 +97,27 @@
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        const images = [];
-        for (let i = 0; i < 136; i++) {
-            let paddedIndex = String(i).padStart(4, '0');  // Ensures the number is 4 digits long (0000, 0001, ..., 0134)
-            let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_${paddedIndex}.png`;
-            images.push(imageUrl);
-        
-            // Preload the image and store in cache
-            const img = new Image();
-            img.src = imageUrl;
-        }
-
         let currentIndex = 0;
+        const totalImages = 136; // The total number of images in the sequence
 
         function updateImage() {
             const imgElement = document.getElementById("image-display");
-            imgElement.src = images[currentIndex];
+            let paddedIndex = String(currentIndex).padStart(4, '0');
+            let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_${paddedIndex}.png`;
+            imgElement.src = imageUrl;
         }
 
         function previousImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
             updateImage();
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
+            currentIndex = (currentIndex + 1) % totalImages;
             updateImage();
         }
 
-        updateImage();
+        updateImage(); // Initial image
     </script>
 </body>
 </html>
