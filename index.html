@@ -103,11 +103,10 @@
             let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_${paddedIndex}.png`;
             images.push(imageUrl);
         
-            // Preload the image
+            // Preload the image and store in cache
             const img = new Image();
             img.src = imageUrl;
-            }
-        
+        }
 
         let currentIndex = 0;
 
