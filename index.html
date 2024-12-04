@@ -80,6 +80,17 @@
         .arrow:hover {
             background-color: rgba(200, 200, 200, 0.8);
         }
+        .counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: #00ff00;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 5px 10px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +107,7 @@
         <img id="image-display" src="" alt="Portfolio Image">
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
+    <div class="counter" id="image-counter">1/137</div>
     <script>
         let currentIndex = -1; // Start before the first image to initialize correctly
         const totalImages = 136; // Number of images in Timeline 1
@@ -112,8 +124,13 @@
 
         function updateImage() {
             const imgElement = document.getElementById("image-display");
+            const counterElement = document.getElementById("image-counter");
             const imageUrl = getImageUrl(currentIndex);
             imgElement.src = imageUrl;
+
+            // Update counter
+            let displayIndex = currentIndex === -1 ? 1 : currentIndex + 1; // -1 is the first image
+            counterElement.textContent = `${displayIndex}/${totalImages + 1}`;
         }
 
         function previousImage() {
