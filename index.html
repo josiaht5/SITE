@@ -47,6 +47,25 @@
         header .social-links a:hover {
             background-color: #003300;
         }
+        .carousel-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .carousel-buttons button {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .carousel-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
         .image-container {
             display: flex;
             align-items: center;
@@ -75,7 +94,7 @@
             justify-content: center;
             user-select: none;
             margin: 0 10px;
-            touch-action: manipulation; /* Prevents double-tap zoom */
+            touch-action: manipulation;
         }
         .arrow:hover {
             background-color: rgba(200, 200, 200, 0.8);
@@ -120,35 +139,70 @@
             <a href="https://www.linkedin.com/in/josiah-colquitt-6b05011b4/" target="_blank">LinkedIn</a>
         </div>
     </header>
+
+    <!-- Carousel Buttons -->
+    <div class="carousel-buttons">
+        <button id="matrixButton" onclick="switchCarousel('matrix')">Matrix</button>
+        <button id="storyboardButton" onclick="switchCarousel('storyboard')">Storyboard</button>
+    </div>
+
     <div class="image-container">
         <button class="arrow left" onclick="previousImage()">&#8592;</button>
         <img id="image-display" src="" alt="Portfolio Image">
-        <div class="counter" id="image-counter">1/136</div>
+        <div class="counter" id="image-counter">1/3</div> <!-- Updated for Matrix -->
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
+
     <script>
         let currentIndex = 0;
-        const totalImages = 136;
+        const totalImagesStoryboard = 136;
+        const totalImagesMatrix = 3; // Matrix carousel has 3 images
+        let currentCarousel = 'matrix'; // Default carousel is Matrix
 
+        // Image sources for Matrix carousel
+        const matrixImages = [
+            "https://i.pinimg.com/736x/f7/87/fc/f787fc3aaa0dc6df143a1212d439429e.jpg",
+            "https://i.pinimg.com/736x/b3/0e/6e/b30e6e0539c8dd7d26e0045e086d01b0.jpg",
+            "https://i.pinimg.com/736x/1c/97/dc/1c97dc7ec2ad438012dff6b59b917271.jpg"
+        ];
+
+        // Update the displayed image
         function updateImage() {
             const imgElement = document.getElementById("image-display");
             const counterElement = document.getElementById("image-counter");
-            let paddedIndex = String(currentIndex).padStart(4, '0');
-            let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
+            let imageUrl = "";
+            let totalImages = 0;
+
+            if (currentCarousel === 'storyboard') {
+                totalImages = totalImagesStoryboard;
+                let paddedIndex = String(currentIndex).padStart(4, '0');
+                imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
+            } else if (currentCarousel === 'matrix') {
+                totalImages = totalImagesMatrix;
+                imageUrl = matrixImages[currentIndex];
+            }
+
             imgElement.src = imageUrl;
             counterElement.textContent = `${currentIndex + 1}/${totalImages}`;
         }
 
         function previousImage() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            currentIndex = (currentIndex - 1 + (currentCarousel === 'matrix' ? totalImagesMatrix : totalImagesStoryboard)) % (currentCarousel === 'matrix' ? totalImagesMatrix : totalImagesStoryboard);
             updateImage();
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % totalImages;
+            currentIndex = (currentIndex + 1) % (currentCarousel === 'matrix' ? totalImagesMatrix : totalImagesStoryboard);
             updateImage();
         }
 
+        function switchCarousel(carousel) {
+            currentCarousel = carousel;
+            currentIndex = 0; // Reset index when switching carousels
+            updateImage();
+        }
+
+        // Initialize the default carousel (Matrix)
         updateImage();
     </script>
 </body>
