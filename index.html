@@ -28,6 +28,7 @@
             align-items: center;
             padding: 10px 20px;
             background-color: rgba(0, 0, 0, 0.8);
+            flex-wrap: wrap;
         }
         header h1 {
             margin: 0;
@@ -36,13 +37,14 @@
         header .social-links {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         header .social-links a {
             color: #00ff00;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             border: 1px solid #00ff00;
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 5px;
         }
         header .social-links a:hover {
@@ -54,42 +56,84 @@
             justify-content: center;
             height: 80%;
             position: relative;
+            width: 90%; /* Ensures it scales on small screens */
         }
         .image-container img {
-            max-height: 80%;
-            max-width: 90%;
+            max-height: 100%;
+            max-width: 100%;
             border: 5px solid #00ff00;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
         }
         .arrow {
-            font-size: 30px;
+            font-size: 20px; /* Reduced for smaller screens */
             color: #00ff00;
             cursor: pointer;
             background-color: rgba(0, 0, 0, 0.8);
             border: none;
             border-radius: 50%;
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             user-select: none;
-            margin: 0 20px; /* Space between the buttons and the image */
+            margin: 0 10px; /* Reduced margin */
         }
         .arrow:hover {
             background-color: rgba(200, 200, 200, 0.8);
         }
         .counter {
             position: absolute;
-            bottom: 720px; /* Adjust distance from bottom of the image */
-            right: 120px;  /* Adjust distance from right */
-            font-size: 16px;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
             color: #00ff00;
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 5px 10px;
+            padding: 5px 8px;
             border: 2px solid #00ff00;
             border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 20px;
+            }
+            header .social-links {
+                justify-content: center; /* Center align on smaller screens */
+                margin-top: 10px;
+            }
+            .image-container {
+                height: 70%; /* Slightly reduce container height for better fit */
+            }
+            .arrow {
+                font-size: 16px;
+                height: 35px;
+                width: 35px;
+            }
+            .counter {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .social-links {
+                flex-direction: column; /* Stack links vertically */
+                gap: 5px;
+            }
+            .image-container {
+                height: 60%;
+            }
+            .arrow {
+                font-size: 14px;
+                height: 30px;
+                width: 30px;
+            }
+            .counter {
+                font-size: 10px;
+            }
         }
     </style>
 </head>
@@ -105,19 +149,17 @@
     <div class="image-container">
         <button class="arrow left" onclick="previousImage()">&#8592;</button>
         <img id="image-display" src="" alt="Portfolio Image">
-        <button class="arrow right" onclick="nextImage()">&#8594;</button>
         <div class="counter" id="image-counter">1/136</div>
+        <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        let currentIndex = -1; // Start before the first image to initialize correctly
-        const totalImages = 135; // Number of images in Timeline 1
+        let currentIndex = -1; 
+        const totalImages = 135; 
 
         function getImageUrl(index) {
             if (index === -1) {
-                // First image
                 return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_0000.png`;
             }
-            // Subsequent images
             let paddedIndex = String(index).padStart(4, '0');
             return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
         }
@@ -127,23 +169,21 @@
             const counterElement = document.getElementById("image-counter");
             const imageUrl = getImageUrl(currentIndex);
             imgElement.src = imageUrl;
-
-            // Update counter
-            let displayIndex = currentIndex === -1 ? 1 : currentIndex + 1; // -1 is the first image
+            let displayIndex = currentIndex === -1 ? 1 : currentIndex + 1; 
             counterElement.textContent = `${displayIndex}/${totalImages + 1}`;
         }
 
         function previousImage() {
-            currentIndex = (currentIndex - 1 + (totalImages + 1)) % (totalImages + 1); // +1 for the first image in Timeline 0
+            currentIndex = (currentIndex - 1 + (totalImages + 1)) % (totalImages + 1);
             updateImage();
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % (totalImages + 1); // +1 for the first image in Timeline 0
+            currentIndex = (currentIndex + 1) % (totalImages + 1);
             updateImage();
         }
 
-        updateImage(); // Set the initial image
+        updateImage(); 
     </script>
 </body>
 </html>
