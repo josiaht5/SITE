@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Josiah Colquitt's Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,6 @@
             background: url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
-            overflow: hidden;
             color: #00ff00;
         }
         header {
@@ -28,23 +27,21 @@
             align-items: center;
             padding: 10px 20px;
             background-color: rgba(0, 0, 0, 0.8);
-            flex-wrap: wrap;
         }
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 18px;
         }
         header .social-links {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
         header .social-links a {
             color: #00ff00;
             text-decoration: none;
             font-size: 14px;
             border: 1px solid #00ff00;
-            padding: 5px 8px;
+            padding: 5px 10px;
             border-radius: 5px;
         }
         header .social-links a:hover {
@@ -56,83 +53,60 @@
             justify-content: center;
             height: 80%;
             position: relative;
-            width: 90%; /* Ensures it scales on small screens */
         }
         .image-container img {
-            max-height: 100%;
-            max-width: 100%;
+            max-height: 80%;
+            max-width: 90%;
             border: 5px solid #00ff00;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
         }
         .arrow {
-            font-size: 20px; /* Reduced for smaller screens */
+            font-size: 20px;
             color: #00ff00;
             cursor: pointer;
             background-color: rgba(0, 0, 0, 0.8);
             border: none;
             border-radius: 50%;
-            height: 40px;
-            width: 40px;
+            height: 50px;
+            width: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             user-select: none;
-            margin: 0 10px; /* Reduced margin */
+            margin: 0 10px;
+            touch-action: manipulation; /* Prevents double-tap zoom */
         }
         .arrow:hover {
             background-color: rgba(200, 200, 200, 0.8);
         }
         .counter {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: #00ff00;
+            top: 0;
+            right: 0;
+            transform: translate(-20px, 40px);
+            font-size: 18px;
+            font-weight: bold;
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 5px 8px;
-            border: 2px solid #00ff00;
+            padding: 5px 10px;
             border-radius: 5px;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             header h1 {
-                font-size: 20px;
-            }
-            header .social-links {
-                justify-content: center; /* Center align on smaller screens */
-                margin-top: 10px;
-            }
-            .image-container {
-                height: 70%; /* Slightly reduce container height for better fit */
-            }
-            .arrow {
                 font-size: 16px;
-                height: 35px;
-                width: 35px;
             }
-            .counter {
+            header .social-links a {
                 font-size: 12px;
-                padding: 4px 6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header .social-links {
-                flex-direction: column; /* Stack links vertically */
-                gap: 5px;
-            }
-            .image-container {
-                height: 60%;
+                padding: 4px 8px;
             }
             .arrow {
-                font-size: 14px;
-                height: 30px;
-                width: 30px;
+                height: 40px;
+                width: 40px;
+                font-size: 16px;
             }
             .counter {
-                font-size: 10px;
+                font-size: 14px;
+                transform: translate(-10px, 20px);
             }
         }
     </style>
@@ -153,37 +127,29 @@
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        let currentIndex = -1; 
-        const totalImages = 135; 
-
-        function getImageUrl(index) {
-            if (index === -1) {
-                return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_0000.png`;
-            }
-            let paddedIndex = String(index).padStart(4, '0');
-            return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
-        }
+        let currentIndex = 0;
+        const totalImages = 136;
 
         function updateImage() {
             const imgElement = document.getElementById("image-display");
             const counterElement = document.getElementById("image-counter");
-            const imageUrl = getImageUrl(currentIndex);
+            let paddedIndex = String(currentIndex).padStart(4, '0');
+            let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
             imgElement.src = imageUrl;
-            let displayIndex = currentIndex === -1 ? 1 : currentIndex + 1; 
-            counterElement.textContent = `${displayIndex}/${totalImages + 1}`;
+            counterElement.textContent = `${currentIndex + 1}/${totalImages}`;
         }
 
         function previousImage() {
-            currentIndex = (currentIndex - 1 + (totalImages + 1)) % (totalImages + 1);
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
             updateImage();
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % (totalImages + 1);
+            currentIndex = (currentIndex + 1) % totalImages;
             updateImage();
         }
 
-        updateImage(); 
+        updateImage();
     </script>
 </body>
 </html>
