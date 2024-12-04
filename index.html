@@ -49,12 +49,12 @@
         }
         .carousel-buttons {
             position: absolute;
-            top: 80%;
+            top: 15%; /* Adjusted to lower the buttons */
+            left: 2%; /* Positioned closer to the left */
             display: flex;
-            flex-direction: row;
-            gap: 20px;
-            justify-content: center;
-            width: 100%;
+            flex-direction: column; /* Stack buttons vertically */
+            gap: 10px;
+            align-items: flex-start;
         }
         .carousel-buttons button {
             background-color: rgba(0, 0, 0, 0.8);
