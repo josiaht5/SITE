@@ -97,11 +97,12 @@
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        const images = [
-            "https://i.pinimg.com/736x/b3/0e/6e/b30e6e0539c8dd7d26e0045e086d01b0.jpg",
-            "https://i.pinimg.com/736x/f7/87/fc/f787fc3aaa0dc6df143a1212d439429e.jpg",
-            "https://i.pinimg.com/736x/1c/97/dc/1c97dc7ec2ad438012dff6b59b917271.jpg"
-        ];
+        const images = [];
+        for (let i = 0; i < 136; i++) {
+            let paddedIndex = String(i).padStart(4, '0');  // Ensures the number is 4 digits long (0000, 0001, ..., 0134)
+            let imageUrl = `https://github.com/josiahtc5/site/blob/main/imgseq/Timeline%200_${paddedIndex}.png?raw=true`;
+            images.push(imageUrl);
+        }
 
         let currentIndex = 0;
 
