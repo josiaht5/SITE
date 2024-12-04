@@ -18,6 +18,7 @@
             height: 100vh;
             overflow: hidden;
             color: #00ff00;
+            transition: background 1s ease; /* Smooth background transition */
         }
         header {
             position: absolute;
@@ -80,6 +81,25 @@
         .arrow:hover {
             background-color: rgba(200, 200, 200, 0.8);
         }
+        /* Outer arrow buttons */
+        .outer-arrow {
+            font-size: 40px;
+            color: #00ff00;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            margin: 0 30px;
+        }
+        .outer-arrow:hover {
+            background-color: rgba(200, 200, 200, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -92,18 +112,32 @@
         </div>
     </header>
     <div class="image-container">
+        <!-- Outer arrow buttons -->
+        <button class="outer-arrow left-outer" onclick="previousBackground()">&#8592;</button>
+        
         <button class="arrow left" onclick="previousImage()">&#8592;</button>
         <img id="image-display" src="" alt="Portfolio Image">
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
+        
+        <button class="outer-arrow right-outer" onclick="nextBackground()">&#8594;</button>
     </div>
     <script>
         const images = [
-            "https://i.pinimg.com/736x/b3/0e/6e/b30e6e0539c8dd7d26e0045e086d01b0.jpg",
-            "https://i.pinimg.com/736x/f7/87/fc/f787fc3aaa0dc6df143a1212d439429e.jpg",
-            "https://i.pinimg.com/736x/1c/97/dc/1c97dc7ec2ad438012dff6b59b917271.jpg"
+            "images/frames/frame1.jpg",
+            "images/frames/frame2.jpg",
+            "images/frames/frame3.jpg",
+            // Add all frames up to frame100.jpg
+        ];
+
+        const backgrounds = [
+            'https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif',
+            'https://i.pinimg.com/originals/5e/3c/cb/5e3ccbb517fa7a1b7ac0416ff4c43960.gif',
+            'https://i.pinimg.com/originals/a3/1f/4f/a31f4ff54ca5819ff8b0e123ea5b847f.gif'
+            // Add your background images here
         ];
 
         let currentIndex = 0;
+        let backgroundIndex = 0;
 
         function updateImage() {
             const imgElement = document.getElementById("image-display");
@@ -120,7 +154,17 @@
             updateImage();
         }
 
-        updateImage();
+        function previousBackground() {
+            backgroundIndex = (backgroundIndex - 1 + backgrounds.length) % backgrounds.length;
+            document.body.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
+        }
+
+        function nextBackground() {
+            backgroundIndex = (backgroundIndex + 1) % backgrounds.length;
+            document.body.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
+        }
+
+        updateImage(); // Initialize with the first image
     </script>
 </body>
 </html>
