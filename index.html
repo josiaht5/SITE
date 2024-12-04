@@ -97,27 +97,36 @@
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        let currentIndex = 0;
-        const totalImages = 136; // The total number of images in the sequence
+        let currentIndex = -1; // Start before the first image to initialize correctly
+        const totalImages = 136; // Number of images in Timeline 1
+
+        function getImageUrl(index) {
+            if (index === -1) {
+                // First image
+                return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_0000.png`;
+            }
+            // Subsequent images
+            let paddedIndex = String(index).padStart(4, '0');
+            return `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%201_${paddedIndex}.png`;
+        }
 
         function updateImage() {
             const imgElement = document.getElementById("image-display");
-            let paddedIndex = String(currentIndex).padStart(4, '0');
-            let imageUrl = `https://raw.githubusercontent.com/josiaht5/site/refs/heads/main/imgseq/Timeline%200_${paddedIndex}.png`;
+            const imageUrl = getImageUrl(currentIndex);
             imgElement.src = imageUrl;
         }
 
         function previousImage() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            currentIndex = (currentIndex - 1 + (totalImages + 1)) % (totalImages + 1); // +1 for the first image in Timeline 0
             updateImage();
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % totalImages;
+            currentIndex = (currentIndex + 1) % (totalImages + 1); // +1 for the first image in Timeline 0
             updateImage();
         }
 
-        updateImage(); // Initial image
+        updateImage(); // Set the initial image
     </script>
 </body>
 </html>
