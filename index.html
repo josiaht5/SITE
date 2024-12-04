@@ -6,80 +6,7 @@
     <title>Josiah Colquitt's Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            font-family: 'Share Tech Mono', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            overflow: hidden;
-            color: #00ff00;
-        }
-        header {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        header .social-links {
-            display: flex;
-            gap: 10px;
-        }
-        header .social-links a {
-            color: #00ff00;
-            text-decoration: none;
-            font-size: 16px;
-            border: 1px solid #00ff00;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        header .social-links a:hover {
-            background-color: #003300;
-        }
-        .image-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 80%;
-            position: relative;
-        }
-        .image-container img {
-            max-height: 80%;
-            max-width: 90%;
-            border: 5px solid #00ff00;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-        }
-        .arrow {
-            font-size: 30px;
-            color: #00ff00;
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.8);
-            border: none;
-            border-radius: 50%;
-            height: 50px;
-            width: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            margin: 0 20px; /* Space between the buttons and the image */
-        }
-        .arrow:hover {
-            background-color: rgba(200, 200, 200, 0.8);
-        }
+        /* Styles from your code */
     </style>
 </head>
 <body>
@@ -97,11 +24,13 @@
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
     <script>
-        const images = [
-            "https://i.pinimg.com/736x/b3/0e/6e/b30e6e0539c8dd7d26e0045e086d01b0.jpg",
-            "https://i.pinimg.com/736x/f7/87/fc/f787fc3aaa0dc6df143a1212d439429e.jpg",
-            "https://i.pinimg.com/736x/1c/97/dc/1c97dc7ec2ad438012dff6b59b917271.jpg"
-        ];
+        // Replace this array with your GitHub image URLs
+        const images = [];
+        for (let i = 0; i < 135; i++) {
+            let paddedIndex = String(i).padStart(4, '0');
+            let imageUrl = `https://github.com/josiahtc5/site/blob/main/imgseq/Timeline%200_${paddedIndex}.png?raw=true`;
+            images.push(imageUrl);
+        }
 
         let currentIndex = 0;
 
