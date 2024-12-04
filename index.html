@@ -82,9 +82,9 @@
         }
         .counter {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 18px;
+            bottom: 90px; /* Adjust distance from bottom of the image */
+            right: 20px;  /* Adjust distance from right */
+            font-size: 16px;
             color: #00ff00;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 5px 10px;
@@ -106,11 +106,11 @@
         <button class="arrow left" onclick="previousImage()">&#8592;</button>
         <img id="image-display" src="" alt="Portfolio Image">
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
+        <div class="counter" id="image-counter">1/136</div>
     </div>
-    <div class="counter" id="image-counter">1/137</div>
     <script>
         let currentIndex = -1; // Start before the first image to initialize correctly
-        const totalImages = 136; // Number of images in Timeline 1
+        const totalImages = 135; // Number of images in Timeline 1
 
         function getImageUrl(index) {
             if (index === -1) {
